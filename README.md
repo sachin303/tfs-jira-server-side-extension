@@ -1,9 +1,6 @@
 # tfs-jira-server-side-extension
 A Tfs server handler which subscribes to tfs CheckinNotification event, retrieve changesets details and create Web Issue link in Jira Issue.
 
-# Summary
-As we have moved our agile planning from TFS to Jira, we are still TFS for its other features such as version control, Build and test management.
-
 
 ## Associate TFS changeset with Jira Issues
 
