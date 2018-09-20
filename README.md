@@ -19,3 +19,16 @@ You will need TFS server access to test this handler since it needs TFS context 
 #### Deployment
 
 Deployment of this server side handler to the TFS server is pretty straightforward. Just drop the assembly containing the event handlers into the Plugins folder of TFS server which in most cases is "../Program Files/Microsoft Team Foundation Server {version}/Application Tier/Web Services/bin/Plugins".
+
+#### References
+
+Jira Rest API:
+
+https://developer.atlassian.com/server/jira/platform/jira-rest-api-for-remote-issue-links/
+https://developer.atlassian.com/server/jira/platform/using-fields-in-remote-issue-links/
+
+
+TFS Server Side Handler: 
+
+https://nothingnessit.wordpress.com/2014/03/18/tfs-event-handler-for-team-foundation-server/
+https://nkdagility.com/tfs-event-handler-for-team-foundation-server-2010/
