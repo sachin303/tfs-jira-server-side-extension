@@ -11,6 +11,10 @@
     <AssemblyName>TfsJira.Plugin</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -34,25 +38,29 @@
     </StartupObject>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Microsoft.TeamFoundation.Common, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+    <Reference Include="Microsoft.TeamFoundation.Common, Version=15.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>Dependency\Microsoft.TeamFoundation.Common.dll</HintPath>
+      <HintPath>Dependency\2017\Microsoft.TeamFoundation.Common.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.TeamFoundation.Framework.Server, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+    <Reference Include="Microsoft.TeamFoundation.Framework.Server, Version=15.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>Dependency\Microsoft.TeamFoundation.Framework.Server.dll</HintPath>
+      <HintPath>Dependency\2017\Microsoft.TeamFoundation.Framework.Server.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.TeamFoundation.Server.Core, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+    <Reference Include="Microsoft.TeamFoundation.Server.Core, Version=15.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>Dependency\Microsoft.TeamFoundation.Server.Core.dll</HintPath>
+      <HintPath>Dependency\2017\Microsoft.TeamFoundation.Server.Core.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.TeamFoundation.VersionControl.Server, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+    <Reference Include="Microsoft.TeamFoundation.VersionControl.Server, Version=15.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>Dependency\Microsoft.TeamFoundation.VersionControl.Server.dll</HintPath>
+      <HintPath>Dependency\2017\Microsoft.TeamFoundation.VersionControl.Server.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.TeamFoundation.WorkItemTracking.Server, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+    <Reference Include="Microsoft.TeamFoundation.WorkItemTracking.Server, Version=15.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>Dependency\Microsoft.TeamFoundation.WorkItemTracking.Server.dll</HintPath>
+      <HintPath>Dependency\2017\Microsoft.TeamFoundation.WorkItemTracking.Server.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.Services.WebApi, Version=15.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Dependency\2017\Microsoft.VisualStudio.Services.WebApi.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
@@ -79,13 +87,19 @@
     <Compile Include="Service\JiraIssueRemoteLinkService.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Dependency\Microsoft.TeamFoundation.Common.dll" />
-    <Content Include="Dependency\Microsoft.TeamFoundation.Framework.Server.dll" />
-    <Content Include="Dependency\Microsoft.TeamFoundation.Server.Core.dll" />
-    <Content Include="Dependency\Microsoft.TeamFoundation.VersionControl.Server.dll" />
-    <Content Include="Dependency\Microsoft.TeamFoundation.WorkItemTracking.Server.dll" />
+    <Content Include="Dependency\2017\Microsoft.TeamFoundation.Common.dll" />
+    <Content Include="Dependency\2017\Microsoft.TeamFoundation.Framework.Server.dll" />
+    <Content Include="Dependency\2017\Microsoft.TeamFoundation.Server.Core.dll" />
+    <Content Include="Dependency\2017\Microsoft.TeamFoundation.VersionControl.Server.dll" />
+    <Content Include="Dependency\2017\Microsoft.TeamFoundation.WorkItemTracking.Server.dll" />
+    <Content Include="Dependency\2015\Microsoft.TeamFoundation.Common.dll" />
+    <Content Include="Dependency\2015\Microsoft.TeamFoundation.Framework.Server.dll" />
+    <Content Include="Dependency\2015\Microsoft.TeamFoundation.Server.Core.dll" />
+    <Content Include="Dependency\2015\Microsoft.TeamFoundation.VersionControl.Server.dll" />
+    <Content Include="Dependency\2015\Microsoft.TeamFoundation.WorkItemTracking.Server.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Dependency\2017\Microsoft.VisualStudio.Services.WebApi.dll" />
     <Content Include="TfsJira.Plugin.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

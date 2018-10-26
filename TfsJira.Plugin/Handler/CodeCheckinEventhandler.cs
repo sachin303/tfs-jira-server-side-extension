@@ -43,15 +43,19 @@ namespace TfsJira.Plugin.Handler
 
                     var checkinNotificationModel = checkinNotification.ToCheckinNotificationModel(requestContext);
 
-                    if (checkinNotificationModel.HasValidComment())
+                    if (checkinNotificationModel.ContainsValidJiraIssueId())
                     {
                         TeamFoundationApplicationCore.Log(
                             message: string.Format(logMessage, checkinNotificationModel.AuthorName, checkinNotificationModel.ChangesetId, checkinNotificationModel.Comment),
                             eventId: 123,
                             level: System.Diagnostics.EventLogEntryType.Information);
 
-                        var request = checkinNotificationModel.CreateJiraIssueLinkRequest();
-                        jiraIssueRemoteLinkService.CreateRemoteLinkToIssue(request);
+                        var jiraLinkRequests = checkinNotificationModel.CreateJiraIssueLinkRequests();
+
+                        foreach (var request in jiraLinkRequests)
+                        {
+                            jiraIssueRemoteLinkService.CreateRemoteLinkToIssue(request);
+                        }
                     }
                 }
             }

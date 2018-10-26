@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using Microsoft.TeamFoundation.Framework.Server;
 using Microsoft.TeamFoundation.VersionControl.Server;
 using TfsJira.Plugin.Configuration;
@@ -9,17 +11,54 @@ namespace TfsJira.Plugin.Extension
 {
     public static class ChangesetExtension
     {
-       public static JiraIssueRemoteLinkRequest CreateJiraIssueLinkRequest(this CheckinNotificationModel checkinNotification)
+       public static IEnumerable<JiraIssueRemoteLinkRequest> CreateJiraIssueLinkRequests(this CheckinNotificationModel checkinNotification)
         {
-            var jiraIssueId = GetJiraIssueIdFrom(checkinNotification.Comment);
-            return new JiraIssueRemoteLinkRequest(checkinNotification.ChangesetId.ToString(), jiraIssueId, checkinNotification.Comment);
+            var requests = new List<JiraIssueRemoteLinkRequest>();
+            var jiraIssueIds = GetJiraIssueIdsFrom(checkinNotification.Comment);
+
+            foreach (var issueId in jiraIssueIds)
+            {
+                requests.Add(new JiraIssueRemoteLinkRequest(checkinNotification.ChangesetId.ToString(), issueId, checkinNotification.Comment));
+            }
+            return requests;
+        }
+
+        public static string[] GetJiraIssueIdsFrom(string changesetComment)
+        {
+            var regexString = @"\b({0}-\d*[0-9])\b";
+            var allowedJiraProjectKeys = Config.AllowedJiraProjectsKey.Split(Config.AllowedJiraProjectsKeySeparator);
+            var issueIds = new List<string>();
+            foreach (var projectKey in allowedJiraProjectKeys)
+            {
+                var match = Regex.Match(changesetComment, string.Format(regexString, projectKey));
+
+                while (match.Captures.Count > 0)
+                {
+                    if (!issueIds.Contains(match.Value))
+                    {
+                        issueIds.Add(match.Value);
+                    }
+                    match = match.NextMatch();
+                }
+
+
+                //if (match.Length > 0)
+                //{
+                //    for (int i = 0; i < match.Captures.Count; i++)
+                //    {
+                //        issueIds.Add(match.Captures[i].Value);
+                //    }
+                //}
+            }
+            return issueIds.ToArray();
         }
 
         /// <summary>
-        /// contains all logic to fetch/retrieve jiraissue Id from comment
+        /// contains all logic to fetch/retrieve jiraissue Id from comment (Only support first word as Jira Issue Id)
         /// </summary>
         /// <param name="changesetComment"></param>
         /// <returns></returns>
+        [Obsolete]
         public static string GetJiraIssueIdFrom(string changesetComment)
         {
             var jiraIssueId = string.Empty;
@@ -34,6 +73,7 @@ namespace TfsJira.Plugin.Extension
             return jiraIssueId;
         }
 
+        [Obsolete]
         private static bool ParseJiraId(string jiraRawIssueId, out string jiraIssueId)
         {
             jiraIssueId = string.Empty;
@@ -57,16 +97,16 @@ namespace TfsJira.Plugin.Extension
             return validationresult;
         }
 
-        public static bool HasValidComment(this CheckinNotificationModel checkinNotification)
+        public static bool ContainsValidJiraIssueId(this CheckinNotificationModel checkinNotification)
         {
-            return (!string.IsNullOrWhiteSpace(checkinNotification.Comment) && !GetJiraIssueIdFrom(checkinNotification.Comment).Equals(string.Empty));
+            return (!string.IsNullOrWhiteSpace(checkinNotification.Comment) && GetJiraIssueIdsFrom(checkinNotification.Comment).Any());
         }
 
         public static CheckinNotificationModel ToCheckinNotificationModel(this CheckinNotification checkinNotification, IVssRequestContext requestContext)
         {
             return new CheckinNotificationModel
             {
-                AuthorName = checkinNotification.ChangesetOwner.GetUniqueName(requestContext),
+                AuthorName = checkinNotification.ChangesetOwner.DisplayName,
                 ChangesetId = checkinNotification.Changeset,
                 Comment = checkinNotification.Comment
             };
